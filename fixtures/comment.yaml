@@ -1,0 +1,5 @@
+App\Entity\Comment:
+  comment__{1..300}:
+    owner: '@user__*'
+    image: '@image__*'
+    text: <text()>

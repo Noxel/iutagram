@@ -1,0 +1,4 @@
+App\Entity\User:
+  user__{1..10}:
+    username: 'user_<current()>'
+    password: user_<current()>

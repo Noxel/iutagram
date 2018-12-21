@@ -1,0 +1,6 @@
+App\Entity\Image:
+  image__{1..100}:
+    text: <text()>
+    path: 'https://ressources.blogdumoderateur.com/2012/12/fonds-decran-noel-1.jpg'
+    date: '<date_create()>'
+    owner: '@user__*'
