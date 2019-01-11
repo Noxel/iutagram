@@ -3,9 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ApiResource(
+ *    collectionOperations={
+ *          "post"={"denormalization_context"={"groups"={"post_comment"}}}
+ *     })
+ *
  */
 class Comment
 {
@@ -13,23 +21,27 @@ class Comment
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"get_image"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get_image", "post_comment"})
      */
     private $text;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Image", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"post_comment"})
      */
     private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"get_image", "post_comment"})
      */
     private $owner;
 

@@ -5,9 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"get_image"}},
+ *     collectionOperations={
+ *          "post"={"denormalization_context"={"groups"={"post_image"}}}
+ *     }
+ * )
  */
 class Image
 {
@@ -15,21 +23,25 @@ class Image
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"get_image", "get_user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get_image", "get_user", "post_image"})
      */
     private $path;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get_image", "post_image"})
      */
     private $text;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"get_image"})
      */
     private $date;
 
@@ -41,13 +53,29 @@ class Image
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"get_image", "post_image"})
      */
     private $owner;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="image", orphanRemoval=true)
+     * @Groups({"get_image"})
      */
     private $comments;
+
+    /**
+     * @Groups({"get_image", "get_user"})
+     */
+    public function getLike(){
+        return count($this->imageLikes);
+    }
+
+    /**
+     * @Groups({"get_user"})
+     */
+    public function getComment(){
+        return count($this->comments);
+    }
 
     public function __construct()
     {
@@ -127,6 +155,7 @@ class Image
         return $this;
     }
 
+
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -169,4 +198,6 @@ class Image
 
         return $this;
     }
+
+
 }
