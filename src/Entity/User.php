@@ -44,9 +44,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * * @Groups({"post_user"})
      */
     private $password;
+
+    /**
+     * @var string The hashed password
+     * @Groups({"post_user"})
+     */
+    private $plainPassword;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ImageLike", mappedBy="owner", orphanRemoval=true)
@@ -156,6 +161,21 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
