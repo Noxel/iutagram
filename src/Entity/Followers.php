@@ -6,7 +6,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *          "post"
+ *     },
+ *     itemOperations={
+ *         "delete"
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\FollowersRepository")
  */
 class Followers

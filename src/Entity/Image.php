@@ -11,9 +11,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
  * @ApiResource(
- *     normalizationContext={"groups"={"get_image"}},
  *     collectionOperations={
  *          "post"={"denormalization_context"={"groups"={"post_image"}}}
+ *     },
+ *     itemOperations={
+ *          "get"={"normalization_context"={"groups"={"get_image"}}},
+ *          "delete",
  *     }
  * )
  */

@@ -10,9 +10,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageLikeRepository")
  * @ApiResource(
- *    collectionOperations={
- *          "post"={"denormalization_context"={"groups"={"post_like"}}}
- *     })
+ *     collectionOperations={
+ *          "post"
+ *     },
+ *     itemOperations={
+ *          "delete"
+ *     }
+ * )
  */
 class ImageLike
 {
@@ -26,14 +30,12 @@ class ImageLike
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="imageLikes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"post_like"})
      */
     private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Image", inversedBy="imageLikes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"post_like"})
      */
     private $image;
 

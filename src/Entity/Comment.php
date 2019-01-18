@@ -10,9 +10,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  * @ApiResource(
- *    collectionOperations={
- *          "post"={"denormalization_context"={"groups"={"post_comment"}}}
- *     })
+ *     collectionOperations={
+ *          "post"
+ *     },
+ *     itemOperations={
+ *         "delete"
+ *     }
+ * )
  *
  */
 class Comment

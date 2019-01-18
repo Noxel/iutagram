@@ -12,11 +12,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(
- *     normalizationContext={"groups"={"get_user"}},
  *     collectionOperations={
  *          "get"={"normalization_context"={"groups"={"get_users"}}},
  *          "post"={"denormalization_context"={"groups"={"post_user"}}}
- *     }
+ *     },
+ *     itemOperations={
+ *           "get"={"normalization_context"={"groups"={"get_user"}}},
+ *           "delete"
+ *     },
+ *
+ *
  * )
  */
 class User implements UserInterface
