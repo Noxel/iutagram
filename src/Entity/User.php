@@ -85,6 +85,12 @@ class User implements UserInterface
     private $follow;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get_user"})
+     */
+    private $avatar;
+
+    /**
      * @Groups({"get_user"})
      */
     public function getPost(){
@@ -353,6 +359,18 @@ class User implements UserInterface
                 $follow->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

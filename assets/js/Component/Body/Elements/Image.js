@@ -1,16 +1,21 @@
 import React, {Component} from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Chat from '@material-ui/icons/Chat';
+import Stars from '@material-ui/icons/Star';
+
 
 export default class Image extends Component {
     render() {
         return (
-            <div className={'imageContainer'}>
+            <Card className={'imageContainer'} onClick={()=>{}}>
                 <img  className={'image'} src={this.props.src}/>
-                <div className={'middle'}>
+                <CardContent className={'middle'}>
                     <div className={'imageText'}>
-                        &#128151; {this.props.like} &#9997; {this.props.comment}
+                        <div><Stars/> {this.props.like}</div><div><Chat/> {this.props.comment}</div>
                     </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         )
     }
 }

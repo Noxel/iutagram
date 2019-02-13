@@ -17,3 +17,6 @@ reload:
 
 db:
 	docker-compose exec database mysql -uroot -proot iutagram
+
+dev:
+	docker-compose exec app yarn dev-server

@@ -16,14 +16,28 @@ import {createStore, applyMiddleware} from 'redux';
 import { reducer } from './reducer.js';
 import thunk from 'redux-thunk';
 import Application from './Component/Application';
-
 import '../css/app.css';
+import {CONNEXION} from "./actions";
 
 const middleware = [thunk];
 if (process.env.NODE_ENV !== 'production'){
     middleware.push(createLogger());
 }
 const store = createStore(reducer, applyMiddleware(...middleware));
+
+if (localStorage.getItem('jwt')){
+    const token = JSON.parse(localStorage.getItem('jwt'));
+    const tokenExpiresAt = token.payload.exp;
+    const currentTimestamp =Date.now()/1000;
+    const threshold = 300;
+    if(currentTimestamp + threshold < tokenExpiresAt){
+
+        store.dispatch({
+            type: CONNEXION,
+            token: token
+        });
+    }
+}
 
 
 

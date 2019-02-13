@@ -1,4 +1,8 @@
 App\Entity\User:
-  user__{1..10}:
+  user__{1..5}:
     username: 'user_<current()>'
     plainPassword: user_<current()>
+  user__{5..10}:
+    username: 'user_<current()>'
+    plainPassword: user_<current()>
+    avatar: <imageUrl()>
