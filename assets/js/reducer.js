@@ -1,4 +1,4 @@
-import {CONNEXION, DECONNEXION, ERROR, FORMCONNEXION, PROFILE, MODAL_IMAGE} from "./actions";
+import {CONNEXION, DECONNEXION, ERROR, FORMCONNEXION, PROFILE, MODAL_IMAGE, IMAGE_LOAD, ACTUALITY_LOAD} from "./actions";
 
 const initialReducer = {
     error: '',
@@ -6,9 +6,15 @@ const initialReducer = {
     token: {},
     formOpen: false,
     modalOpen: false,
+    idImage: '',
     profile : {
         images: []
-    }
+    },
+    image : {
+        comments : [],
+        owner: {}
+    },
+    actuality : []
 };
 
 const reducer = (state = initialReducer, actions) => {
@@ -20,7 +26,11 @@ const reducer = (state = initialReducer, actions) => {
         case FORMCONNEXION :
             return {...state, formOpen : !state.formOpen};
         case MODAL_IMAGE :
-            return {...state, formOpen : !state.modalOpen};
+            return {...state, modalOpen : !state.modalOpen, idImage: actions.id};
+        case IMAGE_LOAD :
+            return {...state, image: actions.image};
+        case ACTUALITY_LOAD:
+            return {...state, actuality: actions.actuality}
         case CONNEXION :
             return {...state,  formOpen : false, token: actions.token, auth: true};
         case DECONNEXION :

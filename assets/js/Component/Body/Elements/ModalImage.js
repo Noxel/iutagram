@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { modalOpen } from "../../../actions";
+import BigImage from './BigImage';
 
-import { Dialog,DialogContent } from '@material-ui/core/';
+import { Dialog } from '@material-ui/core/';
 
 class ModalImage extends Component {
     render() {
@@ -10,11 +11,10 @@ class ModalImage extends Component {
             <Dialog
                 open={this.props.open}
                 onClose={()=> {this.props.dispatch(modalOpen())}}
-                aria-labelledby="form-dialog-title"
+                fullWidth={true}
+                maxWidth = {'md'}
             >
-                <DialogContent>
-                    lul
-                </DialogContent>
+                    <BigImage/>
             </Dialog>
         )
     }

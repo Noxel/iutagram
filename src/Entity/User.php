@@ -14,11 +14,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     collectionOperations={
  *          "get"={"normalization_context"={"groups"={"get_users"}}},
- *          "post"={"denormalization_context"={"groups"={"post_user"}}}
- *     },
+ *          "post"={"denormalization_context"={"groups"={"post_user"}}},
+ *         },
  *     itemOperations={
  *           "get"={"normalization_context"={"groups"={"get_user"}}},
- *           "delete"
+ *           "delete",
+ *            "get_actuality"={"method"="GET", "path"="/users/{id}/actuality", "normalization_context"={"groups"={"get_actuality"}}}
+ *
  *     },
  *
  *
@@ -110,6 +112,33 @@ class User implements UserInterface
         return count($this->follow);
     }
 
+    /**
+     * @Groups({"get_actuality"})
+     */
+    public function getActuality(){
+        $actuality = [];
+
+        foreach ($this->getFollow() as $fol){
+            foreach ($fol->getFollowed()->getImages() as $img){
+                $actuality[] =$img;
+            }
+        }
+
+        usort($actuality, function ($a, $b) {
+            $ad = $a->getDate();
+            $bd = $b->getDate();
+
+            if ($ad == $bd) {
+                return 0;
+            }
+
+            return $ad > $bd ? -1 : 1;
+        });
+
+
+
+        return $actuality;
+    }
 
     public function __construct()
     {

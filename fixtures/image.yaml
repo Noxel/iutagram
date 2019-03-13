@@ -2,5 +2,5 @@ App\Entity\Image:
   image__{1..100}:
     text: <text()>
     path: <imageUrl()>
-    date: '<date_create()>'
+    date: '<datetime()>'
     owner: '@user__*'

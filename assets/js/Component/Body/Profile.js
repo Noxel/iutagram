@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { loadUser } from "../../actions";
 import Image from "./Elements/Image";
 import defaultAvatar from '../../image/avatar.jpg'
-import {Avatar, withStyles, Grid, DialogTitle} from '@material-ui/core';
+import {Avatar, withStyles, Grid, GridList} from '@material-ui/core';
 import ModalImage from "./Elements/ModalImage";
 
 class Profile extends Component {
 
     componentDidMount(){
-        this.props.dispatch(loadUser(1));
+        this.props.dispatch(loadUser(3));
     }
 
     render() {
@@ -33,11 +33,11 @@ class Profile extends Component {
                     </Grid>
 
                 </Grid>
-                <div className={'container'}>
+                <GridList  cols={3} cellHeight={200}>
                     {this.props.profile.images.map( item=> (
-                        <Image key={item.id} src={item.path} like={item.like} comment={item.comment}/>
+                        <Image key={item.id} src={item.path} like={item.like} comment={item.comment} id={item.id}/>
                     ))}
-                </div>
+                </GridList>
                 <ModalImage/>
 
             </div>

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
  * @ApiResource(
  *     collectionOperations={
- *          "post"={"denormalization_context"={"groups"={"post_image"}}}
+ *          "post"={"denormalization_context"={"groups"={"post_image"}}},
  *     },
  *     itemOperations={
  *          "get"={"normalization_context"={"groups"={"get_image"}}},
@@ -26,25 +26,25 @@ class Image
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get_image", "get_user"})
+     * @Groups({"get_image", "get_user", "get_actuality"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"get_image", "get_user", "post_image"})
+     * @Groups({"get_image", "get_user", "post_image", "get_actuality"})
      */
     private $path;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"get_image", "post_image"})
+     * @Groups({"get_image", "post_image", "get_actuality"})
      */
     private $text;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"get_image"})
+     * @Groups({"get_image", "get_actuality"})
      */
     private $date;
 
@@ -67,14 +67,14 @@ class Image
     private $comments;
 
     /**
-     * @Groups({"get_image", "get_user"})
+     * @Groups({"get_image", "get_user", "get_actuality"})
      */
     public function getLike(){
         return count($this->imageLikes);
     }
 
     /**
-     * @Groups({"get_user"})
+     * @Groups({"get_user", "get_actuality"})
      */
     public function getComment(){
         return count($this->comments);

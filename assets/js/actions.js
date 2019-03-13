@@ -1,4 +1,5 @@
 import "@babel/polyfill";
+import Actuality from "./Component/Body/Actuality";
 const adresse = '/api';
 export const ERROR = 'ERROR';
 export const PROFILE = 'PROFILE';
@@ -7,6 +8,8 @@ export const CONNEXION = 'CONNEXION';
 export const DECONNEXION ='DECONNEXION';
 export const CONNEXION_ERROR = 'CONNEXION_ERROR';
 export const MODAL_IMAGE = 'MODAL_IMAGE';
+export const IMAGE_LOAD = 'IMAGE_LOAD';
+export const ACTUALITY_LOAD ='ACTUALITY_LOAD';
 
 export const loadUser = ( id ) => async dispatch => {
     try {
@@ -17,7 +20,6 @@ export const loadUser = ( id ) => async dispatch => {
             }
         });
         let json = await rep.json();
-        console.log(json);
         dispatch({type: PROFILE, profile: json})
     }catch (e) {
         dispatch({type: ERROR, error: e.toString()});
@@ -32,9 +34,9 @@ export const formOpen = () => dispatch => {
     }
 };
 
-export const modalOpen = () => dispatch => {
+export const modalOpen = (id) => dispatch => {
     try{
-        dispatch({type: MODAL_IMAGE})
+        dispatch({type: MODAL_IMAGE, id: id})
     } catch (e) {
         dispatch({type: ERROR, error: e.toString()});
     }
@@ -79,4 +81,34 @@ const decodeJWT = raw => {
         payload: JSON.parse(atob(parts[1])),
         signature: parts[2],
     };
+};
+
+export const loadImage = (id) => async dispatch => {
+    try{
+        let rep = await fetch(adresse + '/images/' + id, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            }
+        });
+        let json = await rep.json();
+        dispatch({type: IMAGE_LOAD, image: json});
+    } catch (e) {
+        dispatch({type: ERROR, error: e.toString()});
+    }
+};
+
+export const loadActuality = (id) => async (dispatch, state) => {
+    try{
+        let rep = await fetch(adresse + '/users/' + id+'/actuality', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            }
+        });
+        let json = await rep.json();
+        dispatch({type: ACTUALITY_LOAD, actuality: json.actuality});
+    } catch (e) {
+        dispatch({type: ERROR, error: e.toString()});
+    }
 };

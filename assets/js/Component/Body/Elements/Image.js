@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Chat from '@material-ui/icons/Chat';
 import Stars from '@material-ui/icons/Star';
+import {modalOpen} from '../../../actions';
 
 
-export default class Image extends Component {
+class Image extends Component {
     render() {
         return (
-            <Card className={'imageContainer'} onClick={()=>{}}>
+            <Card className={'imageContainer'} onClick={()=>{this.props.dispatch(modalOpen(this.props.id))}}>
                 <img  className={'image'} src={this.props.src}/>
                 <CardContent className={'middle'}>
                     <div className={'imageText'}>
@@ -19,3 +21,4 @@ export default class Image extends Component {
         )
     }
 }
+export default connect()(Image);

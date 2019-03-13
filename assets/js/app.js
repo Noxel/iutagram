@@ -18,6 +18,7 @@ import thunk from 'redux-thunk';
 import Application from './Component/Application';
 import '../css/app.css';
 import {CONNEXION} from "./actions";
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 const middleware = [thunk];
 if (process.env.NODE_ENV !== 'production'){
@@ -41,4 +42,4 @@ if (localStorage.getItem('jwt')){
 
 
 
-ReactDOM.render( <Provider store={store}> <Application /> </Provider>,document.getElementById('app'));
+ReactDOM.render( <Provider store={store}><CssBaseline /> <Application /> </Provider>,document.getElementById('app'));
