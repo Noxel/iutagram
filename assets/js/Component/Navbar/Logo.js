@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import logo from '../../image/logoIutagram.png'
+import { Link } from "react-router-dom";
 
 export default class Logo extends Component {
     render() {
         return (
-            <div>
-                <img src={logo}/>
-            </div>
+                <Link to="/actuality">
+                    <img src={logo} />
+                </Link>
         )
     }
 }

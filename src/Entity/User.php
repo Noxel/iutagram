@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={
  *           "get"={"normalization_context"={"groups"={"get_user"}}},
  *           "delete",
- *            "get_actuality"={"method"="GET", "path"="/users/{id}/actuality", "normalization_context"={"groups"={"get_actuality"}}}
+ *            "get_actuality"={"method"="GET", "path"="/users/{id}/actuality", "normalization_context"={"groups"={"get_actuality"}}, "access_control"="is_granted('ROLE_USER')"}
  *
  *     },
  *
@@ -88,7 +88,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"get_user"})
+     * @Groups({"get_user", "get_image"})
      */
     private $avatar;
 

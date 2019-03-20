@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import {withStyles, CardMedia, Avatar, Divider, List, ListItem, ListItemText, Typography} from '@material-ui/core';
+import {withStyles, CardMedia, Avatar, Divider, List, ListItem, ListItemText,Button, Typography, Link} from '@material-ui/core';
 import Chat from '@material-ui/icons/Chat';
 import Stars from '@material-ui/icons/Star';
 import { loadImage } from '../../../actions';
@@ -23,14 +23,16 @@ class BigImage extends Component {
                 <CardContent className={classes.details} >
                     <div className={classes.container}>
                         <div className={classes.head}>
-                            <Avatar
-                                alt={this.props.image.owner.username}
-                                src={this.props.image.owner.avatar ? this.props.image.owner.avatar : defaultAvatar}
-                                className={classes.avatar}
-                                style={{marginRight:' 25px'}}
-                            />
-                            <p><b>{this.props.image.owner.username} </b> </p>
-                            <p style={{color: 'blue'}}> Follow </p>
+                            <Link href={"/profile/"+this.props.image.owner.id} style={{marginRight:' 10px'}}>
+                                <Avatar
+                                    alt={this.props.image.owner.username}
+                                    src={this.props.image.owner.avatar ? this.props.image.owner.avatar : defaultAvatar}
+                                    className={classes.avatar}
+                                />
+                            </Link>
+                            <p><Typography component={Link} href={"/profile/"+this.props.image.owner.id} color="textPrimary"> <b>{this.props.image.owner.username}</b></Typography></p>
+
+                            <Button style={{color: 'blue', marginLeft:'10px'}}> Follow </Button>
                         </div>
                         <Divider variant={'middle'}/>
                         <List className={classes.list} disablePadding={true} >
@@ -38,16 +40,17 @@ class BigImage extends Component {
                                 <ListItem  dense={true} key={index} disableGutters={true}>
                                     <ListItemText className={classes.text}
 
-                                    secondary={<><Typography component="span" className={classes.inline} color="textPrimary">
+                                    secondary={<><Typography component={Link} href={"/profile/"+item.owner.id} className={classes.inline} color="textPrimary">
                                         {item.owner.username}
                                     </Typography> {item.text}</>}/>
                                 </ListItem>
                             ))}
                         </List>
+                        <Divider variant={'middle'}/>
                         <div className={classes.footer}>
                             <ListItem  dense={true}  disableGutters={true}>
                                 <ListItemText className={classes.text}
-                                              primary={this.props.image.like+ 'j\'aime'}/>
+                                              primary={this.props.image.like+ ' j\'aimes'}/>
                             </ListItem>
                             <ListItem  dense={true} disableGutters={true}>
                                 <ListItemText className={classes.text}
@@ -83,11 +86,12 @@ const styles  = {
     head :{
         flex: 1,
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: '10px'
     },
     list :{
         flex: 1,
-        overflow: 'scroll',
+        overflowY: 'scroll',
         maxWidth: 400,
         maxHeight: 300,
     },

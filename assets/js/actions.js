@@ -11,9 +11,11 @@ export const MODAL_IMAGE = 'MODAL_IMAGE';
 export const IMAGE_LOAD = 'IMAGE_LOAD';
 export const ACTUALITY_LOAD ='ACTUALITY_LOAD';
 
-export const loadUser = ( id ) => async dispatch => {
+export const loadUser = ( id ) => async (dispatch, state) => {
+    let param=id;
+    if(param==='me')param =state().token.payload.id;
     try {
-        let rep = await fetch(adresse + '/users/' + id, {
+        let rep = await fetch(adresse + '/users/' + param, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -67,6 +69,7 @@ export const connexion = (username, password) => async dispatch => {
 
 export const deconnexion = () => dispatch => {
     try {
+        localStorage.clear();
         dispatch({type: DECONNEXION});
     }catch (e) {
         dispatch({type: ERROR, error: e.toString()});
@@ -98,12 +101,13 @@ export const loadImage = (id) => async dispatch => {
     }
 };
 
-export const loadActuality = (id) => async (dispatch, state) => {
+export const loadActuality = () => async (dispatch, state) => {
     try{
-        let rep = await fetch(adresse + '/users/' + id+'/actuality', {
+        let rep = await fetch(adresse + '/users/' + state().token.payload.id+'/actuality', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                Authorization: "Bearer " + state().token.rawToken
             }
         });
         let json = await rep.json();

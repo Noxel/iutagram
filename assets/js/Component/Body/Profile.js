@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { loadUser } from "../../actions";
 import Image from "./Elements/Image";
 import defaultAvatar from '../../image/avatar.jpg'
-import {Avatar, withStyles, Grid, GridList} from '@material-ui/core';
+import {Avatar, withStyles, Grid, GridList, Link} from '@material-ui/core';
 import ModalImage from "./Elements/ModalImage";
 
 class Profile extends Component {
 
     componentDidMount(){
-        this.props.dispatch(loadUser(3));
+        this.props.dispatch(loadUser(this.props.id));
     }
 
     render() {
@@ -17,12 +17,14 @@ class Profile extends Component {
         return (
             <div>
                 <Grid container justify={"center"} style={{margin: '20px'}} >
-                    <Avatar
-                        alt={this.props.profile.username}
-                        src={this.props.profile.avatar ? this.props.profile.avatar : defaultAvatar}
-                        className={classes.avatar}
-                        style={{marginRight:' 25px'}}
-                    />
+                    <Link href={"/profile/"+this.props.profile.id}>
+                        <Avatar
+                            alt={this.props.profile.username}
+                            src={this.props.profile.avatar ? this.props.profile.avatar : defaultAvatar}
+                            className={classes.avatar}
+                            style={{marginRight:' 25px'}}
+                        />
+                    </Link>
                     <Grid item style={{marginLeft:' 25px'}} >
                         <h1>{this.props.profile.username}</h1>
                         <Grid item >

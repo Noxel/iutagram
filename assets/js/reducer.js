@@ -14,7 +14,8 @@ const initialReducer = {
         comments : [],
         owner: {}
     },
-    actuality : []
+    actuality : [],
+
 };
 
 const reducer = (state = initialReducer, actions) => {

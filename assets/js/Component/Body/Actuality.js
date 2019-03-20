@@ -8,7 +8,7 @@ import ModalImage from "./Elements/ModalImage";
 class Actuality extends Component {
 
     componentDidMount(){
-        this.props.dispatch(loadActuality(3));
+        this.props.dispatch(loadActuality());
     }
 
     render() {
