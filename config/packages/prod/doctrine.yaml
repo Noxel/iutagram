@@ -1,4 +1,14 @@
 doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_pgsql'
+        server_version: '10'
+        charset: utf8
+        default_table_options:
+            charset: utf8
+            collate: utf8_unicode_ci
+
+        url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: false
         metadata_cache_driver:
